@@ -4,17 +4,7 @@ require 'spec_helper'
 
 module GabApi
   RSpec.describe Client, type: :lib, vcr: true do
-    subject(:client) do
-      Client.access_token = ENV['GAB_OAUTH_TOKEN']
-      Client.instance
-    end
-
-    it 'raises an error if access token is not set' do
-      expect do
-        Client.access_token = nil
-        Client.instance
-      end.to raise_error(MissingAccessToken)
-    end
+    let(:client) { Client.instance }
 
     it 'does not allow .new to be called' do
       expect do
@@ -24,20 +14,23 @@ module GabApi
 
     context '#get' do
       it 'gets current user details' do
-        data = client.get('/v1.0/me')
-        expect(data).to be_a(Hash)
-        expect(data[:id]).to be_a(Integer)
-        expect(data[:name]).to be_a(String)
+        status, body = client.get('/v1.0/me')
+        expect(status).to eq(200)
+        expect(body[:id]).to be_a(Integer)
+        expect(body[:name]).to be_a(String)
       end
     end
 
     context '#post' do
       it 'successfully creates a post' do
-        data = {
+        post_data = {
           body: 'This is a test post from gab_api Ruby gem, currently in development.',
           gif: 'gw3IWyGkC0rsazTi'
         }
-        client.post('/v1.0/posts', data)
+        status, body = client.post('/v1.0/posts', post_data)
+        expect(status).to eq(200)
+        expect(body[:id]).to_not be_empty
+        expect(body[:type]).to eq('post')
       end
     end
   end

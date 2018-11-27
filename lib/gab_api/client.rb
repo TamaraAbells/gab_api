@@ -11,6 +11,7 @@ module GabApi
 
     BASE_URL = 'https://api.gab.com'
 
+    # rubocop:disable Style/ClassVars
     @@access_token = nil
 
     attr_reader :conn
@@ -20,6 +21,7 @@ module GabApi
         @@access_token = token
       end
     end
+    # rubocop:enable Style/ClassVars
 
     def initialize
       if @@access_token.nil?
@@ -27,6 +29,7 @@ module GabApi
       end
       @conn = Faraday.new(url: BASE_URL) do |faraday|
         faraday.adapter Faraday.default_adapter
+        faraday.headers[:user_agent] = "GabApi v#{VERSION}; Ruby Gem: github.com/midwire/gab_api"
       end
     end
 
@@ -36,8 +39,7 @@ module GabApi
         headers(req)
         req.body = MultiJson.dump(data_hash) if data_hash
       end
-      return [resp.status, resp.reason_phrase] unless resp.success?
-      json_to_hash(resp.body)
+      build_response(resp)
     end
 
     def post(path, data_hash = nil)
@@ -46,8 +48,7 @@ module GabApi
         headers(req)
         req.body = MultiJson.dump(data_hash) if data_hash
       end
-      return [resp.status, resp.reason_phrase] unless resp.success?
-      json_to_hash(resp.body)
+      build_response(resp)
     end
 
     private
@@ -59,6 +60,20 @@ module GabApi
     def headers(request)
       request.headers['Content-Type'] = 'application/json'
       request.headers['Authorization'] = "Bearer #{@@access_token}"
+    end
+
+    # Build an array of [status, body]
+    #
+    # @param resp [Response] describe_resp_here
+    # @return [Type] description_of_returned_object
+    def build_response(resp)
+      response = [resp.status]
+      response << if resp.success?
+                    json_to_hash(resp.body)
+                  else
+                    resp.reason_phrase
+                  end
+      response
     end
   end
 end

@@ -1,5 +1,17 @@
-[Cassette: 'GabApi::User/#find/retrieves an existing user'] Initialized with options: {:record=>:once, :match_requests_on=>[:method, :uri], :allow_unused_http_interactions=>true, :serialize_with=>:yaml, :persist_with=>:file_system}
-[webmock] Handling request: [get https://api.gab.com/v1.0/users/a] (disabled: false)
-  [Cassette: 'GabApi::User/#find/retrieves an existing user'] Initialized HTTPInteractionList with request matchers [:method, :uri] and 0 interaction(s): {  }
-[webmock] Identified request type (recordable) for [get https://api.gab.com/v1.0/users/a]
-[Cassette: 'GabApi::User/#find/retrieves an existing user'] Recorded HTTP interaction [get https://api.gab.com/v1.0/users/a] => [500 "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n     "]
+[Cassette: 'GabApi::Client/does not allow .new to be called'] Initialized with options: {:record=>:once, :match_requests_on=>[:method, :uri], :allow_unused_http_interactions=>true, :serialize_with=>:yaml, :persist_with=>:file_system}
+[Cassette: 'GabApi::Client/#post/successfully creates a post'] Initialized with options: {:record=>:once, :match_requests_on=>[:method, :uri], :allow_unused_http_interactions=>true, :serialize_with=>:yaml, :persist_with=>:file_system}
+[webmock] Handling request: [post https://api.gab.com/v1.0/posts] (disabled: false)
+  [Cassette: 'GabApi::Client/#post/successfully creates a post'] Initialized HTTPInteractionList with request matchers [:method, :uri] and 1 interaction(s): { [post https://api.gab.com/v1.0/posts] => [200 "{\"id\":\"e769bbf1-e928-4978-94c3-62cd8537c825\",\"published_at\":\"2018-11-09T20:30:25"] }
+  [Cassette: 'GabApi::Client/#post/successfully creates a post'] Checking if [post https://api.gab.com/v1.0/posts] matches [post https://api.gab.com/v1.0/posts] using [:method, :uri]
+    [Cassette: 'GabApi::Client/#post/successfully creates a post'] method (matched): current request [post https://api.gab.com/v1.0/posts] vs [post https://api.gab.com/v1.0/posts]
+    [Cassette: 'GabApi::Client/#post/successfully creates a post'] uri (matched): current request [post https://api.gab.com/v1.0/posts] vs [post https://api.gab.com/v1.0/posts]
+  [Cassette: 'GabApi::Client/#post/successfully creates a post'] Found matching interaction for [post https://api.gab.com/v1.0/posts] at index 0: [200 "{\"id\":\"e769bbf1-e928-4978-94c3-62cd8537c825\",\"published_at\":\"2018-11-09T20:30:25"]
+[webmock] Identified request type (stubbed_by_vcr) for [post https://api.gab.com/v1.0/posts]
+[Cassette: 'GabApi::Client/#get/gets current user details'] Initialized with options: {:record=>:once, :match_requests_on=>[:method, :uri], :allow_unused_http_interactions=>true, :serialize_with=>:yaml, :persist_with=>:file_system}
+[webmock] Handling request: [get https://api.gab.com/v1.0/me] (disabled: false)
+  [Cassette: 'GabApi::Client/#get/gets current user details'] Initialized HTTPInteractionList with request matchers [:method, :uri] and 1 interaction(s): { [get https://api.gab.com/v1.0/me] => [200 "{\"id\":72338,\"created_at_month_label\":\"November 2016\",\"name\":\"Christopher Michael"] }
+  [Cassette: 'GabApi::Client/#get/gets current user details'] Checking if [get https://api.gab.com/v1.0/me] matches [get https://api.gab.com/v1.0/me] using [:method, :uri]
+    [Cassette: 'GabApi::Client/#get/gets current user details'] method (matched): current request [get https://api.gab.com/v1.0/me] vs [get https://api.gab.com/v1.0/me]
+    [Cassette: 'GabApi::Client/#get/gets current user details'] uri (matched): current request [get https://api.gab.com/v1.0/me] vs [get https://api.gab.com/v1.0/me]
+  [Cassette: 'GabApi::Client/#get/gets current user details'] Found matching interaction for [get https://api.gab.com/v1.0/me] at index 0: [200 "{\"id\":72338,\"created_at_month_label\":\"November 2016\",\"name\":\"Christopher Michael"]
+[webmock] Identified request type (stubbed_by_vcr) for [get https://api.gab.com/v1.0/me]
